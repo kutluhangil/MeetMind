@@ -1,8 +1,11 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import { locales } from '@/lib/navigation';
 
-const locales = ['tr', 'en'];
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
 
 export default async function LocaleLayout({
   children,
@@ -11,7 +14,7 @@ export default async function LocaleLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  if (!locales.includes(locale)) notFound();
+  if (!locales.includes(locale as (typeof locales)[number])) notFound();
 
   const messages = await getMessages();
 

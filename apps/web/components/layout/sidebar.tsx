@@ -1,17 +1,18 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { Link, usePathname } from '@/lib/navigation';
 import { cn } from '@/lib/utils';
 
 const navItems = [
-  { href: '/dashboard',           label: 'Dashboard' },
-  { href: '/meetings',            label: 'Toplantılar' },
-  { href: '/team',                label: 'Takım' },
-  { href: '/settings',            label: 'Ayarlar' },
-];
+  { href: '/dashboard' as const,  key: 'dashboard' },
+  { href: '/meetings'  as const,  key: 'meetings'  },
+  { href: '/team'      as const,  key: 'team'      },
+  { href: '/settings'  as const,  key: 'settings'  },
+] as const;
 
 export function Sidebar() {
+  const t = useTranslations('nav');
   const pathname = usePathname();
 
   return (
@@ -25,11 +26,11 @@ export function Sidebar() {
 
       <nav className="flex-1 p-3 space-y-1">
         {navItems.map((item) => {
-          const active = pathname.includes(item.href);
+          const active = pathname.startsWith(item.href);
           return (
             <Link
               key={item.href}
-              href={`/tr${item.href}`}
+              href={item.href}
               className={cn(
                 'flex items-center px-3 py-2 rounded-xl text-sm transition-all duration-150',
                 active
@@ -37,7 +38,7 @@ export function Sidebar() {
                   : 'text-slate-400 hover:text-slate-100 hover:bg-obsidian-700'
               )}
             >
-              {item.label}
+              {t(item.key)}
             </Link>
           );
         })}
@@ -45,8 +46,8 @@ export function Sidebar() {
 
       <div className="p-3 border-t border-obsidian-700">
         <div className="px-3 py-2 rounded-xl bg-obsidian-800 border border-obsidian-600">
-          <p className="text-xs text-slate-500">Plan</p>
-          <p className="text-sm font-medium text-slate-300">Ücretsiz</p>
+          <p className="text-xs text-slate-500">{t('billing')}</p>
+          <p className="text-sm font-medium text-slate-300">Free</p>
         </div>
       </div>
     </aside>
