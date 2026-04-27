@@ -1,0 +1,24 @@
+{
+  "name": "meetmind",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "type-check": "turbo run type-check",
+    "dev:web": "npm run dev --workspace=apps/web",
+    "dev:worker": "npm run dev --workspace=apps/worker"
+  },
+  "devDependencies": {
+    "turbo": "^2.9.6"
+  },
+  "packageManager": "npm@11.6.2",
+  "engines": {
+    "node": ">=20",
+    "npm": ">=10"
+  }
+}

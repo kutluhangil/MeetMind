@@ -1,0 +1,78 @@
+{
+  "common": {
+    "loading":  "Loading...",
+    "save":     "Save",
+    "cancel":   "Cancel",
+    "delete":   "Delete",
+    "edit":     "Edit",
+    "send":     "Send",
+    "back":     "Back",
+    "next":     "Next",
+    "search":   "Search..."
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "meetings":  "Meetings",
+    "team":      "Team",
+    "settings":  "Settings",
+    "billing":   "Billing",
+    "logout":    "Sign out"
+  },
+  "meeting": {
+    "upload": {
+      "title":      "Upload Meeting",
+      "dropzone":   "Drop your file here",
+      "formats":    "MP3, MP4, WAV, M4A, WebM · Max 500MB",
+      "or":         "or",
+      "record":     "Record from Browser",
+      "processing": "Processing..."
+    },
+    "status": {
+      "pending":      "Pending",
+      "queued":       "Queued",
+      "transcribing": "Transcribing",
+      "summarizing":  "AI Analyzing",
+      "completed":    "Completed",
+      "failed":       "Failed"
+    },
+    "sections": {
+      "transcript": "Transcript",
+      "summary":    "AI Summary",
+      "decisions":  "Key Decisions",
+      "actions":    "Action Items",
+      "sendEmail":  "Send Follow-up Email"
+    }
+  },
+  "pricing": {
+    "monthly": "Monthly",
+    "yearly":  "Yearly",
+    "save":    "Save 20%",
+    "currency": {
+      "usd": "USD ($)",
+      "try": "TRY (₺)"
+    },
+    "plans": {
+      "free": {
+        "name":  "Free",
+        "price": "$0",
+        "desc":  "Get started"
+      },
+      "pro": {
+        "name":  "Pro",
+        "price": "$24",
+        "desc":  "For individual professionals"
+      },
+      "team": {
+        "name":  "Team",
+        "price": "$9",
+        "unit":  "/ user / month",
+        "desc":  "For teams"
+      }
+    },
+    "cta": {
+      "free":    "Start Free",
+      "upgrade": "Upgrade",
+      "contact": "Contact Us"
+    }
+  }
+}

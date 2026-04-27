@@ -1,0 +1,115 @@
+version: '3.9'
+
+services:
+  worker:
+    build:
+      context: ../apps/worker
+      dockerfile: Dockerfile
+    container_name: meetmind_worker
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - REDIS_URL=redis://:${REDIS_PASSWORD}@redis:6379
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL}
+      - SUPABASE_SERVICE_KEY=${SUPABASE_SERVICE_KEY}
+      - RESEND_API_KEY=${RESEND_API_KEY}
+      - WORKER_CONCURRENCY=${WORKER_CONCURRENCY:-3}
+      - NEXT_PUBLIC_URL=${NEXT_PUBLIC_URL}
+    volumes:
+      - worker_tmp:/tmp/meetmind
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - internal
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: '1.5'
+
+  redis:
+    image: redis:7-alpine
+    container_name: meetmind_redis
+    restart: unless-stopped
+    command: >
+      redis-server
+        --requirepass ${REDIS_PASSWORD}
+        --maxmemory 512mb
+        --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', '--pass', '${REDIS_PASSWORD}', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - internal
+
+  nginx:
+    image: nginx:alpine
+    container_name: meetmind_nginx
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/sites:/etc/nginx/sites-enabled:ro
+      - certbot_www:/var/www/certbot:ro
+      - certbot_certs:/etc/letsencrypt:ro
+    depends_on:
+      - worker
+    networks:
+      - internal
+      - external
+
+  certbot:
+    image: certbot/certbot
+    container_name: meetmind_certbot
+    volumes:
+      - certbot_www:/var/www/certbot
+      - certbot_certs:/etc/letsencrypt
+    command: certonly --webroot --webroot-path=/var/www/certbot -d ${DOMAIN} --email ${ADMIN_EMAIL} --agree-tos --no-eff-email
+    networks:
+      - external
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: meetmind_cloudflared
+    restart: unless-stopped
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
+    networks:
+      - internal
+      - external
+
+  bull-board:
+    image: node:20-alpine
+    container_name: meetmind_bullboard
+    restart: unless-stopped
+    environment:
+      - REDIS_URL=redis://:${REDIS_PASSWORD}@redis:6379
+      - BULL_BOARD_USERNAME=${BULL_BOARD_USERNAME}
+      - BULL_BOARD_PASSWORD=${BULL_BOARD_PASSWORD}
+    ports:
+      - '127.0.0.1:3001:3001'
+    depends_on:
+      - redis
+    networks:
+      - internal
+
+volumes:
+  redis_data:
+  worker_tmp:
+  certbot_www:
+  certbot_certs:
+
+networks:
+  internal:
+    driver: bridge
+  external:
+    driver: bridge

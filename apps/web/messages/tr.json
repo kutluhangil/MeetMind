@@ -1,0 +1,78 @@
+{
+  "common": {
+    "loading":  "Yükleniyor...",
+    "save":     "Kaydet",
+    "cancel":   "İptal",
+    "delete":   "Sil",
+    "edit":     "Düzenle",
+    "send":     "Gönder",
+    "back":     "Geri",
+    "next":     "İleri",
+    "search":   "Ara..."
+  },
+  "nav": {
+    "dashboard":  "Ana Sayfa",
+    "meetings":   "Toplantılar",
+    "team":       "Takım",
+    "settings":   "Ayarlar",
+    "billing":    "Abonelik",
+    "logout":     "Çıkış"
+  },
+  "meeting": {
+    "upload": {
+      "title":      "Toplantı Yükle",
+      "dropzone":   "Dosyayı buraya sürükle",
+      "formats":    "MP3, MP4, WAV, M4A, WebM · Maks. 500MB",
+      "or":         "veya",
+      "record":     "Tarayıcıdan Kaydet",
+      "processing": "İşleniyor..."
+    },
+    "status": {
+      "pending":      "Bekliyor",
+      "queued":       "Sıraya Alındı",
+      "transcribing": "Transkripsiyon Yapılıyor",
+      "summarizing":  "AI Analiz Ediyor",
+      "completed":    "Tamamlandı",
+      "failed":       "Hata Oluştu"
+    },
+    "sections": {
+      "transcript":   "Transkript",
+      "summary":      "AI Özeti",
+      "decisions":    "Ana Kararlar",
+      "actions":      "Aksiyon Maddeleri",
+      "sendEmail":    "Takip E-postası Gönder"
+    }
+  },
+  "pricing": {
+    "monthly":  "Aylık",
+    "yearly":   "Yıllık",
+    "save":     "%20 Tasarruf",
+    "currency": {
+      "usd": "USD ($)",
+      "try": "TRY (₺)"
+    },
+    "plans": {
+      "free": {
+        "name":  "Ücretsiz",
+        "price": "₺0",
+        "desc":  "Denemeye başla"
+      },
+      "pro": {
+        "name":  "Pro",
+        "price": "₺699",
+        "desc":  "Bireysel profesyoneller için"
+      },
+      "team": {
+        "name":  "Takım",
+        "price": "₺265",
+        "unit":  "/ kullanıcı / ay",
+        "desc":  "Ekipler için"
+      }
+    },
+    "cta": {
+      "free":    "Ücretsiz Başla",
+      "upgrade": "Yükselt",
+      "contact": "İletişime Geç"
+    }
+  }
+}
