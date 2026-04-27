@@ -1,4 +1,8 @@
 {
+  "metadata": {
+    "title":       "MeetMind — AI Toplantı Notları ve Aksiyon Takibi",
+    "description": "Toplantını yükle, AI transkript çıkarsın, kararları özetlesin, aksiyon maddelerini kişilere atasın."
+  },
   "common": {
     "loading":  "Yükleniyor...",
     "save":     "Kaydet",
@@ -8,7 +12,11 @@
     "send":     "Gönder",
     "back":     "Geri",
     "next":     "İleri",
-    "search":   "Ara..."
+    "search":   "Ara...",
+    "copy":     "Kopyala",
+    "copied":   "Kopyalandı!",
+    "or":       "veya",
+    "noData":   "Henüz veri yok"
   },
   "nav": {
     "dashboard":  "Ana Sayfa",
@@ -16,7 +24,90 @@
     "team":       "Takım",
     "settings":   "Ayarlar",
     "billing":    "Abonelik",
+    "profile":    "Profil",
     "logout":     "Çıkış"
+  },
+  "auth": {
+    "login": {
+      "title":    "Tekrar hoş geldin",
+      "subtitle": "Hesabına giriş yap"
+    },
+    "register": {
+      "title":    "Hesap oluştur",
+      "subtitle": "Ücretsiz başla, kredi kartı gerekmez"
+    },
+    "form": {
+      "email":        "E-posta",
+      "emailPlaceholder": "sen@sirket.com",
+      "password":     "Şifre",
+      "passwordPlaceholder": "••••••••",
+      "tabPassword":  "Şifre",
+      "tabMagicLink": "Magic Link",
+      "submitLogin":  "Giriş Yap",
+      "submitRegister": "Hesap Oluştur",
+      "submitMagicLink": "Magic Link Gönder",
+      "google":       "Google ile devam et",
+      "loading":      "İşleniyor..."
+    },
+    "links": {
+      "noAccount":    "Hesabın yok mu?",
+      "signUp":       "Ücretsiz Kaydol",
+      "hasAccount":   "Zaten hesabın var mı?",
+      "signIn":       "Giriş Yap"
+    },
+    "success": {
+      "magicLinkSent": "Magic link gönderildi! E-postanı kontrol et.",
+      "registered":    "Hesabın oluşturuldu! E-postanı doğrulamak için gelen kutuna bak."
+    },
+    "errors": {
+      "invalidCredentials": "E-posta veya şifre hatalı.",
+      "emailInUse":         "Bu e-posta adresi zaten kullanımda.",
+      "weakPassword":       "Şifre en az 8 karakter olmalı.",
+      "generic":            "Beklenmeyen bir hata oluştu. Tekrar dene."
+    }
+  },
+  "landing": {
+    "badge":       "AI Meeting Intelligence",
+    "title":       "Toplantılarını akıllı hale getir",
+    "description": "Toplantıyı yükle veya kaydet → AI transkript çıkarsın → kararları özetlesin → aksiyon maddelerini kişilere atasın → takip e-postası göndersin.",
+    "cta": {
+      "primary":   "Ücretsiz Başla",
+      "secondary": "Planları Gör"
+    },
+    "features": {
+      "title": "Her şey otomatik",
+      "transcription": {
+        "title": "Otomatik Transkripsiyon",
+        "desc":  "Whisper AI ile %95+ doğrulukta Türkçe ve İngilizce transkripsiyon."
+      },
+      "summary": {
+        "title": "AI Özet",
+        "desc":  "GPT-4o ile toplantının özeti, ana kararlar ve aksiyon maddeleri saniyeler içinde."
+      },
+      "actions": {
+        "title": "Aksiyon Takibi",
+        "desc":  "Kim ne yapacak, ne zaman? Tüm aksiyonlar otomatik atanır ve takip edilir."
+      },
+      "email": {
+        "title": "Takip E-postası",
+        "desc":  "Bir tıkla tüm katılımcılara özet ve aksiyonlar e-postayla gönderilir."
+      }
+    }
+  },
+  "dashboard": {
+    "title":    "Ana Sayfa",
+    "subtitle": "Son toplantıların ve aksiyon maddelerinin özeti",
+    "stats": {
+      "meetings":  "Toplantılar",
+      "actions":   "Açık Aksiyonlar",
+      "emails":    "Gönderilen E-postalar",
+      "thisMonth": "Bu Ay"
+    },
+    "recent": {
+      "title": "Son Toplantılar",
+      "empty": "Henüz toplantı yok. İlk toplantını yükle!"
+    },
+    "newMeeting": "Yeni Toplantı"
   },
   "meeting": {
     "upload": {
@@ -41,6 +132,101 @@
       "decisions":    "Ana Kararlar",
       "actions":      "Aksiyon Maddeleri",
       "sendEmail":    "Takip E-postası Gönder"
+    },
+    "list": {
+      "title":        "Toplantılar",
+      "empty":        "Henüz toplantı yok.",
+      "newButton":    "Yeni Toplantı"
+    },
+    "detail": {
+      "noTranscript": "Transkript henüz hazır değil.",
+      "noSummary":    "Özet henüz hazır değil.",
+      "noDecisions":  "Karar bulunamadı.",
+      "noActions":    "Aksiyon maddesi bulunamadı.",
+      "deleteConfirm": "Bu toplantıyı silmek istediğinden emin misin?"
+    },
+    "email": {
+      "subject":      "Toplantı Özeti",
+      "sendButton":   "E-posta Gönder",
+      "sending":      "Gönderiliyor...",
+      "sent":         "E-posta gönderildi!",
+      "failed":       "E-posta gönderilemedi."
+    }
+  },
+  "action": {
+    "status": {
+      "open":        "Açık",
+      "in_progress": "Devam Ediyor",
+      "completed":   "Tamamlandı",
+      "cancelled":   "İptal Edildi"
+    },
+    "priority": {
+      "low":    "Düşük",
+      "medium": "Orta",
+      "high":   "Yüksek",
+      "urgent": "Acil"
+    },
+    "assignTo":  "Kişiye Ata",
+    "dueDate":   "Son Tarih",
+    "markDone":  "Tamamlandı İşaretle"
+  },
+  "team": {
+    "title":       "Takım",
+    "subtitle":    "Takım üyelerini yönet",
+    "invite":      "Üye Davet Et",
+    "inviteEmail": "E-posta adresi",
+    "inviteSend":  "Davet Gönder",
+    "role": {
+      "owner":  "Sahip",
+      "admin":  "Yönetici",
+      "member": "Üye"
+    },
+    "empty": "Henüz takım üyesi yok.",
+    "planRequired": "Takım özelliği için Team planına geçmen gerekiyor."
+  },
+  "settings": {
+    "title":    "Ayarlar",
+    "sections": {
+      "profile":   "Profil",
+      "billing":   "Abonelik",
+      "language":  "Dil",
+      "danger":    "Tehlikeli Alan"
+    },
+    "profile": {
+      "name":      "Ad Soyad",
+      "email":     "E-posta",
+      "saveButton": "Değişiklikleri Kaydet",
+      "saved":     "Kaydedildi!"
+    },
+    "language": {
+      "label":   "Uygulama Dili",
+      "tr":      "Türkçe",
+      "en":      "English"
+    },
+    "danger": {
+      "deleteAccount":        "Hesabı Sil",
+      "deleteAccountDesc":    "Bu işlem geri alınamaz. Tüm veriler silinir.",
+      "deleteAccountConfirm": "Hesabımı Kalıcı Olarak Sil"
+    }
+  },
+  "billing": {
+    "title":       "Abonelik",
+    "currentPlan": "Mevcut Plan",
+    "upgrade":     "Planı Yükselt",
+    "manage":      "Aboneliği Yönet",
+    "plans": {
+      "free": {
+        "name":  "Ücretsiz",
+        "limit": "Ayda 5 toplantı"
+      },
+      "pro": {
+        "name":  "Pro",
+        "limit": "Sınırsız toplantı"
+      },
+      "team": {
+        "name":  "Takım",
+        "limit": "Sınırsız, paylaşımlı çalışma alanı"
+      }
     }
   },
   "pricing": {
@@ -74,5 +260,12 @@
       "upgrade": "Yükselt",
       "contact": "İletişime Geç"
     }
+  },
+  "errors": {
+    "generic":      "Bir hata oluştu. Lütfen tekrar dene.",
+    "notFound":     "Sayfa bulunamadı.",
+    "unauthorized": "Bu sayfaya erişim için giriş yapman gerekiyor.",
+    "forbidden":    "Bu işlem için yetkin yok.",
+    "serverError":  "Sunucu hatası. Lütfen daha sonra tekrar dene."
   }
 }
