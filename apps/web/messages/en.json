@@ -69,11 +69,28 @@
   "landing": {
     "badge":       "AI Meeting Intelligence",
     "title":       "Make your meetings smarter",
+    "headline":    "Make your meetings smarter",
+    "subheadline": "Upload or record a meeting → AI extracts transcript → summarizes decisions → assigns action items to people → sends follow-up email.",
     "description": "Upload or record a meeting → AI extracts transcript → summarizes decisions → assigns action items to people → sends follow-up email.",
+    "cta_primary":   "Start Free",
+    "cta_secondary": "See Plans",
     "cta": {
       "primary":   "Start Free",
       "secondary": "See Plans"
     },
+    "features_title":    "Everything automated",
+    "features_subtitle": "Upload and wait. AI handles the rest.",
+    "feature_transcription_title": "Automatic Transcription",
+    "feature_transcription_desc":  "95%+ accurate Turkish and English transcription powered by Whisper AI.",
+    "feature_summary_title": "AI Summary",
+    "feature_summary_desc":  "Meeting summary and key decisions in seconds with GPT-4o.",
+    "feature_actions_title": "Action Tracking",
+    "feature_actions_desc":  "Who does what, by when? All actions are automatically assigned.",
+    "feature_email_title": "Follow-up Email",
+    "feature_email_desc":  "Send summary and actions to all participants with one click.",
+    "demo_title":    "How it works",
+    "demo_subtitle": "Upload a meeting and watch AI take over.",
+    "back":          "Back",
     "features": {
       "title": "Everything automated",
       "transcription": {
@@ -171,17 +188,25 @@
     "markDone":  "Mark as Done"
   },
   "team": {
-    "title":       "Team",
-    "subtitle":    "Manage team members",
-    "invite":      "Invite Member",
-    "inviteEmail": "Email address",
-    "inviteSend":  "Send Invite",
+    "title":            "Team",
+    "subtitle":         "Manage team members",
+    "invite":           "Invite",
+    "inviteEmail":      "Email address",
+    "inviteSend":       "Send Invite",
+    "emailPlaceholder": "colleague@company.com",
+    "inviteSent":       "Invite sent!",
+    "inviteError":      "Failed to send invite.",
+    "noMembers":        "No team members yet.",
+    "you":              "you",
+    "owner":            "Owner",
+    "admin":            "Admin",
+    "member":           "Member",
     "role": {
       "owner":  "Owner",
       "admin":  "Admin",
       "member": "Member"
     },
-    "empty": "No team members yet.",
+    "empty":        "No team members yet.",
     "planRequired": "You need to upgrade to the Team plan to use team features."
   },
   "settings": {
@@ -193,10 +218,19 @@
       "danger":    "Danger Zone"
     },
     "profile": {
+      "title":     "Profile",
+      "desc":      "Name, email and language preference",
       "name":      "Full Name",
       "email":     "Email",
+      "language":  "Language",
+      "save":      "Save",
       "saveButton": "Save Changes",
-      "saved":     "Saved!"
+      "saved":     "Saved!",
+      "saveError": "Failed to save."
+    },
+    "billing": {
+      "title": "Billing",
+      "desc":  "Plan and payment information"
     },
     "language": {
       "label":   "App Language",

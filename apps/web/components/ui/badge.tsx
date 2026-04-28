@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 
 interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
-  variant?: 'default' | 'pending' | 'processing' | 'completed' | 'failed';
+  variant?: 'default' | 'pending' | 'processing' | 'completed' | 'failed' | 'success' | 'warning';
   pulse?: boolean;
 }
 
@@ -16,6 +16,8 @@ export function Badge({ variant = 'default', pulse, className, children, ...prop
           processing: 'bg-status-processing/10 text-status-processing',
           completed:  'bg-status-completed/10 text-status-completed',
           failed:     'bg-status-failed/10 text-status-failed',
+          success:    'bg-phosphor/10 text-phosphor',
+          warning:    'bg-amber-400/10 text-amber-400',
         }[variant],
         className
       )}

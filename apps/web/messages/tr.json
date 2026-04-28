@@ -69,11 +69,28 @@
   "landing": {
     "badge":       "AI Meeting Intelligence",
     "title":       "Toplantılarını akıllı hale getir",
+    "headline":    "Toplantılarını akıllı hale getir",
+    "subheadline": "Toplantıyı yükle veya kaydet → AI transkript çıkarsın → kararları özetlesin → aksiyon maddelerini kişilere atasın → takip e-postası göndersin.",
     "description": "Toplantıyı yükle veya kaydet → AI transkript çıkarsın → kararları özetlesin → aksiyon maddelerini kişilere atasın → takip e-postası göndersin.",
+    "cta_primary":   "Ücretsiz Başla",
+    "cta_secondary": "Planları Gör",
     "cta": {
       "primary":   "Ücretsiz Başla",
       "secondary": "Planları Gör"
     },
+    "features_title":    "Her şey otomatik",
+    "features_subtitle": "Yükle ve bekle. Gerisini AI halleder.",
+    "feature_transcription_title": "Otomatik Transkripsiyon",
+    "feature_transcription_desc":  "Whisper AI ile %95+ doğrulukta Türkçe ve İngilizce transkripsiyon.",
+    "feature_summary_title": "AI Özet",
+    "feature_summary_desc":  "GPT-4o ile toplantının özeti ve ana kararlar saniyeler içinde.",
+    "feature_actions_title": "Aksiyon Takibi",
+    "feature_actions_desc":  "Kim ne yapacak, ne zaman? Tüm aksiyonlar otomatik atanır.",
+    "feature_email_title": "Takip E-postası",
+    "feature_email_desc":  "Bir tıkla tüm katılımcılara özet e-postayla gönderilir.",
+    "demo_title":    "Nasıl çalışır?",
+    "demo_subtitle": "Bir toplantıyı yükleyip AI'ın devreye girişini izle.",
+    "back":          "Geri",
     "features": {
       "title": "Her şey otomatik",
       "transcription": {
@@ -171,17 +188,25 @@
     "markDone":  "Tamamlandı İşaretle"
   },
   "team": {
-    "title":       "Takım",
-    "subtitle":    "Takım üyelerini yönet",
-    "invite":      "Üye Davet Et",
-    "inviteEmail": "E-posta adresi",
-    "inviteSend":  "Davet Gönder",
+    "title":            "Takım",
+    "subtitle":         "Takım üyelerini yönet",
+    "invite":           "Davet Et",
+    "inviteEmail":      "E-posta adresi",
+    "inviteSend":       "Davet Gönder",
+    "emailPlaceholder": "arkadas@sirket.com",
+    "inviteSent":       "Davet gönderildi!",
+    "inviteError":      "Davet gönderilemedi.",
+    "noMembers":        "Henüz takım üyesi yok.",
+    "you":              "sen",
+    "owner":            "Sahip",
+    "admin":            "Yönetici",
+    "member":           "Üye",
     "role": {
       "owner":  "Sahip",
       "admin":  "Yönetici",
       "member": "Üye"
     },
-    "empty": "Henüz takım üyesi yok.",
+    "empty":        "Henüz takım üyesi yok.",
     "planRequired": "Takım özelliği için Team planına geçmen gerekiyor."
   },
   "settings": {
@@ -193,10 +218,19 @@
       "danger":    "Tehlikeli Alan"
     },
     "profile": {
+      "title":     "Profil",
+      "desc":      "Ad, e-posta ve dil tercihin",
       "name":      "Ad Soyad",
       "email":     "E-posta",
+      "language":  "Dil",
+      "save":      "Kaydet",
       "saveButton": "Değişiklikleri Kaydet",
-      "saved":     "Kaydedildi!"
+      "saved":     "Kaydedildi!",
+      "saveError": "Kaydedilemedi."
+    },
+    "billing": {
+      "title": "Abonelik",
+      "desc":  "Plan ve ödeme bilgilerin"
     },
     "language": {
       "label":   "Uygulama Dili",

@@ -1,0 +1,26 @@
+{
+  "buildCommand": "cd apps/web && npm run build",
+  "outputDirectory": "apps/web/.next",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "env": {
+    "NEXT_PUBLIC_SUPABASE_URL": "@next_public_supabase_url",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "@next_public_supabase_anon_key",
+    "SUPABASE_SERVICE_KEY": "@supabase_service_key",
+    "LEMON_API_KEY": "@lemon_api_key",
+    "LEMON_STORE_ID": "@lemon_store_id",
+    "LEMON_WEBHOOK_SECRET": "@lemon_webhook_secret",
+    "WORKER_API_SECRET": "@worker_api_secret",
+    "WORKER_INTERNAL_URL": "@worker_internal_url",
+    "NEXT_PUBLIC_URL": "@next_public_url"
+  },
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" }
+      ]
+    }
+  ]
+}

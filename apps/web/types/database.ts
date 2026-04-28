@@ -1,5 +1,5 @@
 // Auto-generated types for Supabase.
-// To regenerate run: npx supabase gen types typescript --linked > apps/web/types/database.ts
+// To regenerate: npx supabase gen types typescript --linked > apps/web/types/database.ts
 
 export type Json =
   | string
@@ -51,6 +51,7 @@ export interface Database {
           locale?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       organizations: {
         Row: {
@@ -71,6 +72,7 @@ export interface Database {
           name?: string;
           slug?: string;
         };
+        Relationships: [];
       };
       org_members: {
         Row: {
@@ -93,6 +95,7 @@ export interface Database {
           role?: OrgMemberRole;
           joined_at?: string | null;
         };
+        Relationships: [];
       };
       subscriptions: {
         Row: {
@@ -135,6 +138,7 @@ export interface Database {
           cancel_at_period_end?: boolean;
           updated_at?: string;
         };
+        Relationships: [];
       };
       meetings: {
         Row: {
@@ -197,6 +201,7 @@ export interface Database {
           tags?: string[] | null;
           updated_at?: string;
         };
+        Relationships: [];
       };
       action_items: {
         Row: {
@@ -245,6 +250,7 @@ export interface Database {
           completed_at?: string | null;
           updated_at?: string;
         };
+        Relationships: [];
       };
       email_logs: {
         Row: {
@@ -276,6 +282,7 @@ export interface Database {
           sent_at?: string | null;
           error?: string | null;
         };
+        Relationships: [];
       };
       usage_logs: {
         Row: {
@@ -296,9 +303,11 @@ export interface Database {
           period_month: number;
           created_at?: string;
         };
-        Update: never;
+        Update: Record<string, never>;
+        Relationships: [];
       };
     };
+    Views: Record<string, never>;
     Functions: {
       get_monthly_usage: {
         Args: { p_user_id: string };
@@ -306,19 +315,20 @@ export interface Database {
       };
       get_user_plan: {
         Args: { p_user_id: string };
-        Returns: SubscriptionPlan;
+        Returns: string;
       };
     };
     Enums: Record<string, never>;
+    CompositeTypes: Record<string, never>;
   };
 }
 
 // Convenience row types
-export type Profile     = Database['public']['Tables']['profiles']['Row'];
+export type Profile      = Database['public']['Tables']['profiles']['Row'];
 export type Organization = Database['public']['Tables']['organizations']['Row'];
-export type OrgMember   = Database['public']['Tables']['org_members']['Row'];
+export type OrgMember    = Database['public']['Tables']['org_members']['Row'];
 export type Subscription = Database['public']['Tables']['subscriptions']['Row'];
-export type Meeting     = Database['public']['Tables']['meetings']['Row'];
-export type ActionItem  = Database['public']['Tables']['action_items']['Row'];
-export type EmailLog    = Database['public']['Tables']['email_logs']['Row'];
-export type UsageLog    = Database['public']['Tables']['usage_logs']['Row'];
+export type Meeting      = Database['public']['Tables']['meetings']['Row'];
+export type ActionItem   = Database['public']['Tables']['action_items']['Row'];
+export type EmailLog     = Database['public']['Tables']['email_logs']['Row'];
+export type UsageLog     = Database['public']['Tables']['usage_logs']['Row'];

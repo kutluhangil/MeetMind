@@ -1,0 +1,44 @@
+version: '3.9'
+
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: meetmind_redis_dev
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    command: redis-server --requirepass devpassword --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_dev_data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', '--pass', 'devpassword', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  worker:
+    build:
+      context: ../apps/worker
+      dockerfile: Dockerfile
+      target: runner
+    container_name: meetmind_worker_dev
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=development
+      - REDIS_URL=redis://:devpassword@redis:6379
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_SERVICE_KEY=${SUPABASE_SERVICE_KEY}
+      - RESEND_API_KEY=${RESEND_API_KEY}
+      - RESEND_FROM_EMAIL=${RESEND_FROM_EMAIL:-noreply@meetmind.io}
+      - RESEND_FROM_NAME=${RESEND_FROM_NAME:-MeetMind}
+      - WORKER_CONCURRENCY=2
+    volumes:
+      - worker_tmp:/tmp/meetmind
+    depends_on:
+      redis:
+        condition: service_healthy
+
+volumes:
+  redis_dev_data:
+  worker_tmp:

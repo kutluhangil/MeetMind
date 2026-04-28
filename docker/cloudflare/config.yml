@@ -1,0 +1,19 @@
+# Cloudflare Tunnel configuration
+# Docs: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/
+
+tunnel: meetmind
+credentials-file: /home/nonroot/.cloudflared/<TUNNEL_ID>.json
+
+ingress:
+  # Worker API (internal — secured by WORKER_API_SECRET)
+  - hostname: worker.meetmind.io
+    service: http://worker:3002
+    originRequest:
+      connectTimeout: 30s
+      noTLSVerify: false
+
+  # Catch-all → Next.js (Vercel) or local Next.js
+  # If deploying frontend locally:
+  # - hostname: meetmind.io
+  #   service: http://nextjs:3000
+  - service: http_status:404
