@@ -25,8 +25,24 @@ export function PricingTable() {
   const t = useTranslations('pricing');
   const router = useRouter();
 
-  const handleUpgrade = (plan: 'pro' | 'team') => {
-    router.push(`/settings/billing`);
+  const [loadingPlan, setLoadingPlan] = useState<'pro' | 'team' | null>(null);
+
+  const handleUpgrade = async (plan: 'pro' | 'team') => {
+    setLoadingPlan(plan);
+    try {
+      const variantParam = `plan=${plan}&interval=${interval}&currency=${currency}`;
+      const res = await fetch(`/api/billing/checkout?${variantParam}`);
+      if (!res.ok) {
+        router.push('/settings/billing');
+        return;
+      }
+      const { checkoutUrl } = await res.json() as { checkoutUrl: string };
+      window.location.href = checkoutUrl;
+    } catch {
+      router.push('/settings/billing');
+    } finally {
+      setLoadingPlan(null);
+    }
   };
 
   return (
@@ -119,9 +135,10 @@ export function PricingTable() {
           </ul>
           <button
             onClick={() => handleUpgrade('pro')}
-            className="block w-full py-2.5 rounded-xl text-center text-sm font-semibold bg-phosphor text-obsidian-950 hover:bg-phosphor-glow transition-colors"
+            disabled={loadingPlan === 'pro'}
+            className="block w-full py-2.5 rounded-xl text-center text-sm font-semibold bg-phosphor text-obsidian-950 hover:bg-phosphor-glow transition-colors disabled:opacity-60"
           >
-            {t('cta.upgrade')}
+            {loadingPlan === 'pro' ? '...' : t('cta.upgrade')}
           </button>
         </div>
 
@@ -146,9 +163,10 @@ export function PricingTable() {
           </ul>
           <button
             onClick={() => handleUpgrade('team')}
-            className="block w-full py-2.5 rounded-xl text-center text-sm font-semibold bg-obsidian-700 border border-obsidian-500 text-slate-300 hover:border-indigo-500/50 hover:text-slate-100 transition-colors"
+            disabled={loadingPlan === 'team'}
+            className="block w-full py-2.5 rounded-xl text-center text-sm font-semibold bg-obsidian-700 border border-obsidian-500 text-slate-300 hover:border-indigo-500/50 hover:text-slate-100 transition-colors disabled:opacity-60"
           >
-            {t('cta.upgrade')}
+            {loadingPlan === 'team' ? '...' : t('cta.upgrade')}
           </button>
         </div>
       </div>

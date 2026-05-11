@@ -57,6 +57,11 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
+  // API routes only need the auth cookie refresh, not locale routing
+  if (pathname.startsWith('/api')) {
+    return supabaseResponse;
+  }
+
   // Run next-intl locale routing
   const intlResponse = intlMiddleware(request);
 

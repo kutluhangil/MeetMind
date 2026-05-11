@@ -2,6 +2,25 @@ import { createHmac } from 'crypto';
 import { NextRequest, NextResponse } from 'next/server';
 import { createAdminClient } from '@/lib/supabase/admin';
 
+type LemonEvent = {
+  meta: { event_name: string; custom_data?: { user_id?: string } };
+  data: {
+    id: string;
+    attributes: {
+      status: string;
+      currency: string;
+      product_name: string;
+      subscription_id?: number;
+      renews_at?: string;
+      ends_at?: string;
+      billing_anchor?: number;
+      user_email?: string;
+    };
+  };
+};
+
+type AdminClient = ReturnType<typeof createAdminClient>;
+
 export async function POST(req: NextRequest) {
   const rawBody = await req.text();
   const signature = req.headers.get('x-signature');
@@ -12,23 +31,7 @@ export async function POST(req: NextRequest) {
     return new NextResponse('Unauthorized', { status: 401 });
   }
 
-  const event = JSON.parse(rawBody) as {
-    meta: { event_name: string; custom_data?: { user_id?: string } };
-    data: {
-      id: string;
-      attributes: {
-        status: string;
-        currency: string;
-        product_name: string;
-        subscription_id?: number;
-        renews_at?: string;
-        ends_at?: string;
-        billing_anchor?: number;
-        user_email?: string;
-      };
-    };
-  };
-
+  const event = JSON.parse(rawBody) as LemonEvent;
   const admin = createAdminClient();
   const eventName = event.meta.event_name;
 
@@ -49,7 +52,7 @@ export async function POST(req: NextRequest) {
   return new NextResponse('OK');
 }
 
-async function handleSubscriptionUpsert(event: ReturnType<typeof parseEvent>, admin: ReturnType<typeof createAdminClient>) {
+async function handleSubscriptionUpsert(event: LemonEvent, admin: AdminClient) {
   const userId = event.meta.custom_data?.user_id;
   if (!userId) return;
 
@@ -71,34 +74,16 @@ async function handleSubscriptionUpsert(event: ReturnType<typeof parseEvent>, ad
   );
 }
 
-async function handleSubscriptionCancelled(event: ReturnType<typeof parseEvent>, admin: ReturnType<typeof createAdminClient>) {
+async function handleSubscriptionCancelled(event: LemonEvent, admin: AdminClient) {
   await admin
     .from('subscriptions')
     .update({ status: 'cancelled', cancel_at_period_end: true })
     .eq('lemon_squeezy_id', event.data.id);
 }
 
-async function handleSubscriptionExpired(event: ReturnType<typeof parseEvent>, admin: ReturnType<typeof createAdminClient>) {
+async function handleSubscriptionExpired(event: LemonEvent, admin: AdminClient) {
   await admin
     .from('subscriptions')
     .update({ status: 'expired' })
     .eq('lemon_squeezy_id', event.data.id);
-}
-
-function parseEvent(event: unknown) {
-  return event as {
-    meta: { event_name: string; custom_data?: { user_id?: string } };
-    data: {
-      id: string;
-      attributes: {
-        status: string;
-        currency: string;
-        product_name: string;
-        subscription_id?: number;
-        renews_at?: string;
-        ends_at?: string;
-        billing_anchor?: number;
-      };
-    };
-  };
 }

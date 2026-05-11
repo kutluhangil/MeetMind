@@ -8,10 +8,20 @@ export async function GET(req: NextRequest) {
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const { searchParams } = new URL(req.url);
-  const variantId = searchParams.get('variantId');
   const currency = (searchParams.get('currency') ?? 'USD') as 'USD' | 'TRY';
 
-  if (!variantId) return NextResponse.json({ error: 'variantId required' }, { status: 400 });
+  // Accept either an explicit variantId or plan+interval for server-side resolution
+  let variantId = searchParams.get('variantId');
+  if (!variantId) {
+    const plan = searchParams.get('plan') as 'pro' | 'team' | null;
+    const interval = (searchParams.get('interval') ?? 'monthly') as 'monthly' | 'yearly';
+    if (!plan || !['pro', 'team'].includes(plan)) {
+      return NextResponse.json({ error: 'variantId or plan required' }, { status: 400 });
+    }
+    const key = `LEMON_${plan.toUpperCase()}_${interval.toUpperCase()}_${currency}_ID`;
+    variantId = process.env[key] ?? null;
+    if (!variantId) return NextResponse.json({ error: `Missing env var: ${key}` }, { status: 500 });
+  }
 
   const { data: profile } = await supabase
     .from('profiles')

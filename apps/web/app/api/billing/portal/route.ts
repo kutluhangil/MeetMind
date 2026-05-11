@@ -38,5 +38,5 @@ export async function GET(_req: NextRequest) {
   const portalUrl = data.data?.attributes?.urls?.customer_portal;
 
   if (!portalUrl) return NextResponse.json({ error: 'Portal URL not available' }, { status: 500 });
-  return NextResponse.json({ portalUrl });
+  return NextResponse.redirect(portalUrl);
 }

@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-import type { Json } from '@/types/database';
 
 export async function GET(
   _req: NextRequest,
@@ -46,6 +45,7 @@ export async function PATCH(
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const body = await req.json() as Record<string, unknown>;
+  const audioFilePath = body.audioFilePath as string | undefined;
 
   const { data: meeting, error } = await supabase
     .from('meetings')
@@ -53,9 +53,10 @@ export async function PATCH(
       ...(body.title !== undefined && { title: body.title as string }),
       ...(body.description !== undefined && { description: body.description as string | null }),
       ...(body.summary !== undefined && { summary: body.summary as string | null }),
-      ...(body.key_decisions !== undefined && { key_decisions: body.key_decisions as Json | null }),
+      ...(body.key_decisions !== undefined && { key_decisions: body.key_decisions as import('@/types/database').Json | null }),
       ...(body.tags !== undefined && { tags: body.tags as string[] }),
       ...(body.meeting_date !== undefined && { meeting_date: body.meeting_date as string }),
+      ...(audioFilePath !== undefined && { audio_file_path: audioFilePath, status: 'pending' }),
     })
     .eq('id', params.id)
     .eq('user_id', user.id)
@@ -63,6 +64,36 @@ export async function PATCH(
     .single();
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+
+  // When a real audio file path is provided, enqueue transcription
+  if (audioFilePath && audioFilePath !== '__pending__') {
+    const workerUrl = `${process.env.WORKER_INTERNAL_URL ?? 'http://localhost:3002'}/enqueue`;
+    try {
+      const enqueueRes = await fetch(workerUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-worker-secret': process.env.WORKER_API_SECRET ?? '',
+        },
+        body: JSON.stringify({
+          queue: 'transcription',
+          jobName: `transcription:${params.id}`,
+          data: {
+            meetingId: params.id,
+            audioFilePath,
+            language: meeting.language ?? 'auto',
+            userId: user.id,
+          },
+        }),
+      });
+      if (enqueueRes.ok) {
+        await supabase.from('meetings').update({ status: 'queued' }).eq('id', params.id);
+      }
+    } catch {
+      // Worker unreachable — meeting stays in 'pending', can be retried
+    }
+  }
+
   return NextResponse.json({ meeting });
 }
 

@@ -54,25 +54,13 @@ export default function NewMeetingPage() {
       // Upload to Supabase Storage
       await fetch(uploadUrl, { method: 'PUT', body: file, headers: { 'Content-Type': file.type } });
 
-      // Update meeting with real path and enqueue
-      await fetch(`/api/meetings/${meeting.id}`, {
+      // Update meeting with real path — this also triggers worker enqueue
+      const patchRes = await fetch(`/api/meetings/${meeting.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ audioFilePath: path }),
       });
-
-      // Trigger transcription
-      await fetch('/api/meetings', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          title,
-          language,
-          audioFilePath: path,
-          audioFileSize: file.size,
-          _enqueueOnly: meeting.id,
-        }),
-      });
+      if (!patchRes.ok) throw new Error('Failed to update meeting path');
 
       router.push(`/meetings/${meeting.id}`);
     } catch (err) {

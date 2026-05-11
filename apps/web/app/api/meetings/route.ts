@@ -35,11 +35,11 @@ export async function POST(req: NextRequest) {
 
   // Check plan limits
   const { data: planData } = await admin.rpc('get_user_plan', { p_user_id: user.id });
-  const plan = planData as string ?? 'free';
+  const plan = (planData as string | null) ?? 'free';
 
   if (plan === 'free') {
     const { data: usageData } = await admin.rpc('get_monthly_usage', { p_user_id: user.id });
-    const usage = usageData as number ?? 0;
+    const usage = (usageData as number | null) ?? 0;
     if (usage >= FREE_PLAN_LIMIT) {
       return NextResponse.json(
         { error: 'Monthly meeting limit reached. Upgrade to Pro for unlimited meetings.' },
@@ -80,7 +80,11 @@ export async function POST(req: NextRequest) {
     period_month: new Date().getMonth() + 1,
   });
 
-  // Enqueue transcription job
+  // Enqueue transcription job — skip if file isn't uploaded yet
+  if (body.audioFilePath === '__pending__') {
+    return NextResponse.json({ meeting }, { status: 201 });
+  }
+
   const workerUrl = `${process.env.WORKER_INTERNAL_URL ?? 'http://localhost:3002'}/enqueue`;
   try {
     await fetch(workerUrl, {
