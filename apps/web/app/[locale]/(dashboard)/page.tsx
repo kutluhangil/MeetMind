@@ -2,8 +2,8 @@ import { getTranslations } from 'next-intl/server';
 import { createClient } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { Link } from '@/lib/navigation';
-import { StatusBadge } from '@/components/meetings/status-badge';
-import type { Meeting, MeetingStatus } from '@/types/database';
+import { RealtimeMeetingsList } from '@/components/dashboard/realtime-meetings-list';
+import type { Meeting } from '@/types/database';
 
 export default async function DashboardPage() {
   const t = await getTranslations('dashboard');
@@ -90,37 +90,7 @@ export default async function DashboardPage() {
           </Link>
         </div>
 
-        {meetings.length === 0 ? (
-          <div className="rounded-2xl bg-obsidian-800/40 border border-obsidian-700 p-8 text-center">
-            <p className="text-slate-500 text-sm">{t('recent.empty')}</p>
-            <Link
-              href="/meetings/new"
-              className="inline-block mt-3 px-4 py-2 rounded-xl bg-phosphor text-obsidian-950 text-sm font-semibold hover:bg-phosphor-glow transition-colors"
-            >
-              {t('newMeeting')}
-            </Link>
-          </div>
-        ) : (
-          <div className="space-y-2">
-            {meetings.map((meeting) => (
-              <Link
-                key={meeting.id}
-                href={`/meetings/${meeting.id}`}
-                className="flex items-center justify-between p-4 rounded-2xl bg-obsidian-800/60 border border-obsidian-600 hover:border-obsidian-400 transition-colors group"
-              >
-                <div className="min-w-0">
-                  <p className="text-sm font-medium text-slate-200 group-hover:text-slate-100 truncate">
-                    {meeting.title}
-                  </p>
-                  <p className="text-xs text-slate-500 mt-0.5">
-                    {new Date(meeting.created_at).toLocaleDateString()}
-                  </p>
-                </div>
-                <StatusBadge meetingId={meeting.id} initialStatus={meeting.status as MeetingStatus} />
-              </Link>
-            ))}
-          </div>
-        )}
+        <RealtimeMeetingsList initialMeetings={meetings} userId={user!.id} />
       </div>
     </div>
   );

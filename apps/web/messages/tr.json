@@ -151,9 +151,10 @@
       "sendEmail":    "Takip E-postası Gönder"
     },
     "list": {
-      "title":        "Toplantılar",
-      "empty":        "Henüz toplantı yok.",
-      "newButton":    "Yeni Toplantı"
+      "title":             "Toplantılar",
+      "empty":             "Henüz toplantı yok.",
+      "newButton":         "Yeni Toplantı",
+      "searchPlaceholder": "Toplantı ara..."
     },
     "detail": {
       "noTranscript": "Transkript henüz hazır değil.",
@@ -240,8 +241,14 @@
     "danger": {
       "deleteAccount":        "Hesabı Sil",
       "deleteAccountDesc":    "Bu işlem geri alınamaz. Tüm veriler silinir.",
-      "deleteAccountConfirm": "Hesabımı Kalıcı Olarak Sil"
+      "deleteAccountConfirm": "Hesabımı Kalıcı Olarak Sil",
+      "deleting":             "Siliniyor...",
+      "cancel":               "İptal"
     }
+  },
+  "retry": {
+    "button":  "Tekrar Dene",
+    "loading": "Yeniden deneniyor..."
   },
   "billing": {
     "title":       "Abonelik",
@@ -294,6 +301,14 @@
       "upgrade": "Yükselt",
       "contact": "İletişime Geç"
     }
+  },
+  "meetingFilter": {
+    "all":          "Tümü",
+    "completed":    "Tamamlandı",
+    "pending":      "Bekliyor",
+    "queued":       "Sırada",
+    "transcribing": "İşleniyor",
+    "failed":       "Hata"
   },
   "errors": {
     "generic":      "Bir hata oluştu. Lütfen tekrar dene.",

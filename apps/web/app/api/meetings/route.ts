@@ -12,14 +12,21 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const page = parseInt(searchParams.get('page') ?? '1');
   const limit = parseInt(searchParams.get('limit') ?? '10');
+  const search = searchParams.get('search')?.trim() ?? '';
+  const status = searchParams.get('status') ?? '';
   const from = (page - 1) * limit;
 
-  const { data: meetings, error, count } = await supabase
+  let query = supabase
     .from('meetings')
     .select('*', { count: 'exact' })
     .eq('user_id', user.id)
     .order('created_at', { ascending: false })
     .range(from, from + limit - 1);
+
+  if (search) query = query.ilike('title', `%${search}%`);
+  if (status) query = query.eq('status', status as import('@/types/database').MeetingStatus);
+
+  const { data: meetings, error, count } = await query;
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 

@@ -11,6 +11,16 @@ export async function POST(
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
+  // Verify meeting belongs to user (admin client bypasses RLS)
+  const { data: meeting } = await supabase
+    .from('meetings')
+    .select('id')
+    .eq('id', params.id)
+    .eq('user_id', user.id)
+    .single();
+
+  if (!meeting) return NextResponse.json({ error: 'Not found' }, { status: 404 });
+
   const body = await req.json() as {
     recipients: string[];
     subject?: string;

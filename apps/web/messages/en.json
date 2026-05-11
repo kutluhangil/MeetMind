@@ -151,9 +151,10 @@
       "sendEmail":    "Send Follow-up Email"
     },
     "list": {
-      "title":        "Meetings",
-      "empty":        "No meetings yet.",
-      "newButton":    "New Meeting"
+      "title":             "Meetings",
+      "empty":             "No meetings yet.",
+      "newButton":         "New Meeting",
+      "searchPlaceholder": "Search meetings..."
     },
     "detail": {
       "noTranscript": "Transcript not ready yet.",
@@ -240,8 +241,14 @@
     "danger": {
       "deleteAccount":        "Delete Account",
       "deleteAccountDesc":    "This action is irreversible. All data will be deleted.",
-      "deleteAccountConfirm": "Permanently Delete My Account"
+      "deleteAccountConfirm": "Permanently Delete My Account",
+      "deleting":             "Deleting...",
+      "cancel":               "Cancel"
     }
+  },
+  "retry": {
+    "button":  "Retry",
+    "loading": "Retrying..."
   },
   "billing": {
     "title":       "Billing",
@@ -294,6 +301,14 @@
       "upgrade": "Upgrade",
       "contact": "Contact Us"
     }
+  },
+  "meetingFilter": {
+    "all":          "All",
+    "completed":    "Completed",
+    "pending":      "Pending",
+    "queued":       "Queued",
+    "transcribing": "Processing",
+    "failed":       "Failed"
   },
   "errors": {
     "generic":      "An error occurred. Please try again.",

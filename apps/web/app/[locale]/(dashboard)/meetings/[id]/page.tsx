@@ -6,7 +6,8 @@ import { TranscriptView } from '@/components/meetings/transcript-view';
 import { SummaryCard } from '@/components/meetings/summary-card';
 import { ActionListWrapper } from '@/components/meetings/action-list-wrapper';
 import { EmailPreview } from '@/components/meetings/email-preview';
-import type { MeetingStatus, ActionItem, Json } from '@/types/database';
+import type { MeetingStatus, ActionItem } from '@/types/database';
+import { RetryButton } from '@/components/meetings/retry-button';
 
 export default async function MeetingDetailPage({
   params,
@@ -55,9 +56,14 @@ export default async function MeetingDetailPage({
       </div>
 
       {/* Error state */}
-      {meeting.status === 'failed' && meeting.error_message && (
+      {meeting.status === 'failed' && (
         <div className="rounded-2xl bg-red-500/10 border border-red-500/20 p-4">
-          <p className="text-sm text-red-400">{meeting.error_message}</p>
+          <p className="text-sm text-red-400">
+            {meeting.error_message ?? 'İşlem sırasında bir hata oluştu.'}
+          </p>
+          {meeting.audio_file_path && (
+            <RetryButton meetingId={meeting.id} />
+          )}
         </div>
       )}
 

@@ -65,6 +65,11 @@ export async function transcriptionProcessor(job: Job<TranscriptionJobData>): Pr
     };
     await summaryQueue.add(`summary:${meetingId}`, summaryJobData);
     await job.updateProgress(100);
+  } catch (err) {
+    // Mark meeting as failed so the user can see the error and retry
+    const message = err instanceof Error ? err.message : String(err);
+    await updateMeeting(meetingId, { status: 'failed', error_message: message }).catch(() => null);
+    throw err;
   } finally {
     cleanupFiles(filesToClean);
   }
