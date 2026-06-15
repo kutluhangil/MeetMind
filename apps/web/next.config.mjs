@@ -1,9 +1,9 @@
-import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
 
 const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
 
@@ -20,7 +20,9 @@ const nextConfig: NextConfig = {
 
   // Prevent build failure when server-only env vars are absent at build time
   // (they're provided by Vercel at runtime, not baked into the bundle)
-  serverExternalPackages: ['ioredis', 'bullmq'],
+  experimental: {
+    serverComponentsExternalPackages: ['ioredis', 'bullmq'],
+  },
 };
 
 export default withNextIntl(nextConfig);

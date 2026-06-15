@@ -35,3 +35,4 @@ npm-debug.log*
 # Docker SSL
 docker/nginx/sites/*.key
 docker/nginx/sites/*.crt
+.vercel
