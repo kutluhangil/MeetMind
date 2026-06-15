@@ -35,6 +35,9 @@ export interface Database {
           locale: string;
           created_at: string;
           updated_at: string;
+          slack_webhook_url: string | null;
+          notion_api_key: string | null;
+          notion_database_id: string | null;
         };
         Insert: {
           id: string;
@@ -44,12 +47,18 @@ export interface Database {
           locale?: string;
           created_at?: string;
           updated_at?: string;
+          slack_webhook_url?: string | null;
+          notion_api_key?: string | null;
+          notion_database_id?: string | null;
         };
         Update: {
           full_name?: string | null;
           avatar_url?: string | null;
           locale?: string;
           updated_at?: string;
+          slack_webhook_url?: string | null;
+          notion_api_key?: string | null;
+          notion_database_id?: string | null;
         };
         Relationships: [];
       };

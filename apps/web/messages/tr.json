@@ -251,8 +251,22 @@
       "saveError": "Kaydedilemedi."
     },
     "billing": {
-      "title": "Abonelik",
-      "desc":  "Plan ve ödeme bilgilerin"
+      "title": "Faturalandırma",
+      "desc":  "Plan ve ödeme bilgileri"
+    },
+    "integrations": {
+      "title": "Entegrasyonlar",
+      "desc": "Slack ve Notion entegrasyon ayarları",
+      "slackWebhook": "Slack Webhook URL'si",
+      "notionKey": "Notion API Anahtarı",
+      "notionDb": "Notion Veritabanı ID'si",
+      "slackPlaceholder": "https://hooks.slack.com/services/...",
+      "notionKeyPlaceholder": "secret_...",
+      "notionDbPlaceholder": "Notion veritabanı UUID'si",
+      "save": "Entegrasyonları Kaydet",
+      "saving": "Kaydediliyor...",
+      "saved": "Entegrasyonlar başarıyla güncellendi!",
+      "error": "Entegrasyonlar güncellenemedi."
     },
     "language": {
       "label":   "Uygulama Dili",

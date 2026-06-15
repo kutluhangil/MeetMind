@@ -49,3 +49,8 @@ ALTER TABLE meetings ADD COLUMN IF NOT EXISTS transcript_segments JSONB;
 
 -- Add sentiment column for Phase 4 (Analytics)
 ALTER TABLE meetings ADD COLUMN IF NOT EXISTS sentiment TEXT CHECK (sentiment IN ('positive', 'neutral', 'negative', 'mixed'));
+
+-- Add integration settings to profiles for Phase 5 (Integrations)
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS slack_webhook_url TEXT;
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS notion_api_key TEXT;
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS notion_database_id TEXT;

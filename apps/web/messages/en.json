@@ -254,6 +254,20 @@
       "title": "Billing",
       "desc":  "Plan and payment information"
     },
+    "integrations": {
+      "title": "Integrations",
+      "desc": "Slack and Notion webhook settings",
+      "slackWebhook": "Slack Webhook URL",
+      "notionKey": "Notion API Key",
+      "notionDb": "Notion Database ID",
+      "slackPlaceholder": "https://hooks.slack.com/services/...",
+      "notionKeyPlaceholder": "secret_...",
+      "notionDbPlaceholder": "Notion database UUID",
+      "save": "Save Integrations",
+      "saving": "Saving...",
+      "saved": "Integrations updated successfully!",
+      "error": "Failed to update integrations."
+    },
     "language": {
       "label":   "App Language",
       "tr":      "Türkçe",

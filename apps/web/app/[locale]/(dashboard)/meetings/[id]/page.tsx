@@ -9,6 +9,7 @@ import { EmailPreview } from '@/components/meetings/email-preview';
 import type { MeetingStatus, ActionItem } from '@/types/database';
 import { RetryButton } from '@/components/meetings/retry-button';
 import { MeetingChat } from '@/components/meetings/meeting-chat';
+import { IntegrationDispatch } from '@/components/meetings/integration-dispatch';
 
 export default async function MeetingDetailPage({
   params,
@@ -19,14 +20,26 @@ export default async function MeetingDetailPage({
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
-  const { data: meeting } = await supabase
-    .from('meetings')
-    .select('*')
-    .eq('id', params.id)
-    .eq('user_id', user!.id)
-    .single();
+  const [meetingRes, profileRes] = await Promise.all([
+    supabase
+      .from('meetings')
+      .select('*')
+      .eq('id', params.id)
+      .eq('user_id', user!.id)
+      .single(),
+    supabase
+      .from('profiles')
+      .select('slack_webhook_url, notion_api_key, notion_database_id')
+      .eq('id', user!.id)
+      .single(),
+  ]);
 
+  const meeting = meetingRes.data;
   if (!meeting) notFound();
+
+  const profile = profileRes.data;
+  const hasSlack = !!profile?.slack_webhook_url;
+  const hasNotion = !!profile?.notion_api_key && !!profile?.notion_database_id;
 
   const { data: actionItems } = await supabase
     .from('action_items')
@@ -104,6 +117,16 @@ export default async function MeetingDetailPage({
             transcriptSegments={meeting.transcript_segments as any}
           />
         </div>
+      )}
+
+      {/* Integrations dispatch */}
+      {meeting.status === 'completed' && (
+        <IntegrationDispatch
+          meetingId={meeting.id}
+          hasSlack={hasSlack}
+          hasNotion={hasNotion}
+          locale={params.locale}
+        />
       )}
 
       {/* Send email */}
