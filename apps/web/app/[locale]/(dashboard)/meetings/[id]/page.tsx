@@ -8,6 +8,7 @@ import { ActionListWrapper } from '@/components/meetings/action-list-wrapper';
 import { EmailPreview } from '@/components/meetings/email-preview';
 import type { MeetingStatus, ActionItem } from '@/types/database';
 import { RetryButton } from '@/components/meetings/retry-button';
+import { MeetingChat } from '@/components/meetings/meeting-chat';
 
 export default async function MeetingDetailPage({
   params,
@@ -114,6 +115,11 @@ export default async function MeetingDetailPage({
             actionItems={items}
           />
         </div>
+      )}
+
+      {/* AI Chat Bot */}
+      {meeting.transcript && (
+        <MeetingChat meetingId={meeting.id} />
       )}
     </div>
   );

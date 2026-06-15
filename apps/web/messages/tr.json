@@ -169,6 +169,14 @@
       "sending":      "Gönderiliyor...",
       "sent":         "E-posta gönderildi!",
       "failed":       "E-posta gönderilemedi."
+    },
+    "chat": {
+      "title":        "AI Toplantı Asistanı",
+      "placeholder":  "Toplantı hakkında soru sor...",
+      "send":         "Gönder",
+      "empty":        "Henüz mesaj yok. Toplantıyla ilgili merak ettiğiniz herhangi bir şeyi sorarak başlayın!",
+      "error":        "Mesaj gönderilemedi. Lütfen tekrar deneyin.",
+      "loading":      "MeetMind yanıt yazıyor..."
     }
   },
   "action": {

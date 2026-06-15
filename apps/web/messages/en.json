@@ -169,6 +169,14 @@
       "sending":      "Sending...",
       "sent":         "Email sent!",
       "failed":       "Failed to send email."
+    },
+    "chat": {
+      "title":        "AI Meeting Assistant",
+      "placeholder":  "Ask a question about the meeting...",
+      "send":         "Send",
+      "empty":        "No messages yet. Ask anything about the meeting to get started!",
+      "error":        "Failed to send message. Please try again.",
+      "loading":      "MeetMind is typing..."
     }
   },
   "action": {

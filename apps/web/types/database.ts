@@ -162,6 +162,8 @@ export interface Database {
           tags: string[] | null;
           created_at: string;
           updated_at: string;
+          template_type: string;
+          transcript_segments: Json | null;
         };
         Insert: {
           id?: string;
@@ -182,6 +184,8 @@ export interface Database {
           meeting_date?: string;
           participants?: Json | null;
           tags?: string[] | null;
+          template_type?: string;
+          transcript_segments?: Json | null;
         };
         Update: {
           title?: string;
@@ -200,6 +204,8 @@ export interface Database {
           participants?: Json | null;
           tags?: string[] | null;
           updated_at?: string;
+          template_type?: string;
+          transcript_segments?: Json | null;
         };
         Relationships: [];
       };
@@ -306,6 +312,28 @@ export interface Database {
         Update: Record<string, never>;
         Relationships: [];
       };
+      meeting_messages: {
+        Row: {
+          id: string;
+          meeting_id: string;
+          user_id: string;
+          role: 'user' | 'assistant';
+          content: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          meeting_id: string;
+          user_id: string;
+          role: 'user' | 'assistant';
+          content: string;
+          created_at?: string;
+        };
+        Update: {
+          content?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: {
@@ -332,3 +360,4 @@ export type Meeting      = Database['public']['Tables']['meetings']['Row'];
 export type ActionItem   = Database['public']['Tables']['action_items']['Row'];
 export type EmailLog     = Database['public']['Tables']['email_logs']['Row'];
 export type UsageLog     = Database['public']['Tables']['usage_logs']['Row'];
+export type MeetingMessage = Database['public']['Tables']['meeting_messages']['Row'];
