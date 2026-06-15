@@ -164,6 +164,7 @@ export interface Database {
           updated_at: string;
           template_type: string;
           transcript_segments: Json | null;
+          sentiment: 'positive' | 'neutral' | 'negative' | 'mixed' | null;
         };
         Insert: {
           id?: string;
@@ -186,6 +187,7 @@ export interface Database {
           tags?: string[] | null;
           template_type?: string;
           transcript_segments?: Json | null;
+          sentiment?: 'positive' | 'neutral' | 'negative' | 'mixed' | null;
         };
         Update: {
           title?: string;
@@ -206,6 +208,7 @@ export interface Database {
           updated_at?: string;
           template_type?: string;
           transcript_segments?: Json | null;
+          sentiment?: 'positive' | 'neutral' | 'negative' | 'mixed' | null;
         };
         Relationships: [];
       };

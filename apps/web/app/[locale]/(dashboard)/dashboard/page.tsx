@@ -3,15 +3,16 @@ import { createClient } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { Link } from '@/lib/navigation';
 import { RealtimeMeetingsList } from '@/components/dashboard/realtime-meetings-list';
+import { DashboardAnalytics } from '@/components/dashboard/dashboard-analytics';
 import type { Meeting } from '@/types/database';
 
-export default async function DashboardPage() {
+export default async function DashboardPage({ params }: { params: { locale: string } }) {
   const t = await getTranslations('dashboard');
   const supabase = await createClient();
   const admin = createAdminClient();
   const { data: { user } } = await supabase.auth.getUser();
 
-  const [meetingsRes, usageRes, planRes] = await Promise.all([
+  const [meetingsRes, usageRes, planRes, allMeetingsRes, allActionsRes] = await Promise.all([
     supabase
       .from('meetings')
       .select('*')
@@ -20,6 +21,14 @@ export default async function DashboardPage() {
       .limit(5),
     admin.rpc('get_monthly_usage', { p_user_id: user!.id }),
     admin.rpc('get_user_plan', { p_user_id: user!.id }),
+    supabase
+      .from('meetings')
+      .select('title, audio_duration, sentiment, created_at')
+      .eq('user_id', user!.id),
+    supabase
+      .from('action_items')
+      .select('status')
+      .eq('user_id', user!.id),
   ]);
 
   const meetings: Meeting[] = meetingsRes.data ?? [];
@@ -61,6 +70,13 @@ export default async function DashboardPage() {
           </div>
         ))}
       </div>
+
+      {/* Analytics Charts */}
+      <DashboardAnalytics
+        meetings={allMeetingsRes.data ?? []}
+        actionItems={allActionsRes.data ?? []}
+        locale={params.locale}
+      />
 
       {/* Plan upgrade banner */}
       {plan === 'free' && (

@@ -46,3 +46,6 @@ ALTER TABLE meetings ADD COLUMN IF NOT EXISTS template_type TEXT DEFAULT 'genera
 
 -- Add transcript_segments column for Phase 2 (Speaker Diarization)
 ALTER TABLE meetings ADD COLUMN IF NOT EXISTS transcript_segments JSONB;
+
+-- Add sentiment column for Phase 4 (Analytics)
+ALTER TABLE meetings ADD COLUMN IF NOT EXISTS sentiment TEXT CHECK (sentiment IN ('positive', 'neutral', 'negative', 'mixed'));
