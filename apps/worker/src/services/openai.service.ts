@@ -51,10 +51,11 @@ export interface SummaryResult {
 
 export async function summarizeMeeting(
   transcript: string,
-  language: 'tr' | 'en'
+  language: 'tr' | 'en',
+  templateType?: string
 ): Promise<SummaryResult> {
   const client = getClient();
-  const prompt = buildSummaryPrompt(transcript, language);
+  const prompt = buildSummaryPrompt(transcript, language, templateType);
 
   const response = await client.chat.completions.create({
     model: 'gpt-4o',

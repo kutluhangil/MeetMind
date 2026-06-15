@@ -20,4 +20,5 @@ export interface TranscriptionJobData {
   audioFilePath: string;
   language: 'tr' | 'en' | 'auto';
   userId: string;
+  templateType?: string;
 }

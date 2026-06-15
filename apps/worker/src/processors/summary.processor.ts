@@ -4,12 +4,12 @@ import { updateMeeting, insertActionItems } from '../services/supabase.service.j
 import { summarizeMeeting } from '../services/openai.service.js';
 
 export async function summaryProcessor(job: Job<SummaryJobData>): Promise<void> {
-  const { meetingId, transcript, language, userId } = job.data;
+  const { meetingId, transcript, language, userId, templateType } = job.data;
 
   try {
     await job.updateProgress(10);
 
-    const result = await summarizeMeeting(transcript, language);
+    const result = await summarizeMeeting(transcript, language, templateType);
     await job.updateProgress(60);
 
     await updateMeeting(meetingId, {

@@ -61,6 +61,7 @@ export async function POST(req: NextRequest) {
     audioFilePath: string;
     audioFileSize?: number;
     participants?: Array<{ name: string; email?: string }>;
+    templateType?: string;
   };
 
   const { data: meeting, error } = await supabase
@@ -72,6 +73,7 @@ export async function POST(req: NextRequest) {
       audio_file_path: body.audioFilePath,
       audio_file_size: body.audioFileSize ?? null,
       participants: body.participants ?? null,
+      template_type: body.templateType ?? 'general',
       status: 'pending',
     })
     .select()
@@ -108,6 +110,7 @@ export async function POST(req: NextRequest) {
           audioFilePath: body.audioFilePath,
           language: body.language ?? 'auto',
           userId: user.id,
+          templateType: body.templateType ?? 'general',
         },
       }),
     });

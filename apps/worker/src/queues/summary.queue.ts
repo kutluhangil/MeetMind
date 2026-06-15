@@ -16,4 +16,5 @@ export interface SummaryJobData {
   transcript: string;
   language: 'tr' | 'en';
   userId: string;
+  templateType?: string;
 }

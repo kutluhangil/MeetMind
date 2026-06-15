@@ -133,7 +133,20 @@
       "formats":    "MP3, MP4, WAV, M4A, WebM · Maks. 500MB",
       "or":         "veya",
       "record":     "Tarayıcıdan Kaydet",
-      "processing": "İşleniyor..."
+      "processing": "İşleniyor...",
+      "templateLabel": "Toplantı Şablonu",
+      "templates": {
+        "general": "Genel Toplantı",
+        "generalDesc": "Standart özet, ana kararlar ve aksiyonlar",
+        "standup": "Günlük Standup",
+        "standupDesc": "Bireysel güncellemelere, dün/bugün durumuna ve engellere odaklanır",
+        "sales": "Satış Görüşmesi",
+        "salesDesc": "Müşteri ihtiyaçları, sorunları ve itirazlara odaklanır",
+        "brainstorm": "Beyin Fırtınası",
+        "brainstormDesc": "Fikirler, öneriler ve alternatif tartışmalarına odaklanır",
+        "interview": "Mülakat & 1-1",
+        "interviewDesc": "Geri bildirimler, aday değerlendirmeleri ve aksiyonlara odaklanır"
+      }
     },
     "status": {
       "pending":      "Bekliyor",

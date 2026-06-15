@@ -133,7 +133,20 @@
       "formats":    "MP3, MP4, WAV, M4A, WebM · Max 500MB",
       "or":         "or",
       "record":     "Record from Browser",
-      "processing": "Processing..."
+      "processing": "Processing...",
+      "templateLabel": "Meeting Template",
+      "templates": {
+        "general": "General Meeting",
+        "generalDesc": "Standard summary, key decisions, action items",
+        "standup": "Daily Standup",
+        "standupDesc": "Focuses on updates, blockers & plans",
+        "sales": "Sales Call",
+        "salesDesc": "Focuses on customer needs, pain points & objections",
+        "brainstorm": "Brainstorming",
+        "brainstormDesc": "Focuses on ideas, suggestions & pros/cons",
+        "interview": "Interview / 1-on-1",
+        "interviewDesc": "Focuses on feedback, performance & next actions"
+      }
     },
     "status": {
       "pending":      "Pending",

@@ -62,6 +62,7 @@ export async function transcriptionProcessor(job: Job<TranscriptionJobData>): Pr
       transcript: fullTranscript,
       language: language === 'auto' ? 'en' : language,
       userId,
+      templateType: job.data.templateType,
     };
     await summaryQueue.add(`summary:${meetingId}`, summaryJobData);
     await job.updateProgress(100);

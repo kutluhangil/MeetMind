@@ -83,6 +83,7 @@ export async function PATCH(
             audioFilePath,
             language: meeting.language ?? 'auto',
             userId: user.id,
+            templateType: meeting.template_type ?? 'general',
           },
         }),
       });

@@ -14,6 +14,7 @@ export default function NewMeetingPage() {
   const [mode, setMode] = useState<Mode>('upload');
   const [title, setTitle] = useState('');
   const [language, setLanguage] = useState<'tr' | 'en' | 'auto'>('auto');
+  const [templateType, setTemplateType] = useState('general');
   const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -35,7 +36,7 @@ export default function NewMeetingPage() {
       const createRes = await fetch('/api/meetings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title, language, audioFilePath: '__pending__', audioFileSize: file.size }),
+        body: JSON.stringify({ title, language, audioFilePath: '__pending__', audioFileSize: file.size, templateType }),
       });
       if (!createRes.ok) {
         const { error: err } = await createRes.json() as { error: string };
@@ -99,6 +100,41 @@ export default function NewMeetingPage() {
               }`}
             >
               {l === 'auto' ? 'Auto-detect' : l.toUpperCase()}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Template Type */}
+      <div className="space-y-2">
+        <label className="text-xs text-slate-400 font-medium uppercase tracking-wide">
+          {t('templateLabel')}
+        </label>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {(['general', 'standup', 'sales', 'brainstorm', 'interview'] as const).map((tpl) => (
+            <button
+              key={tpl}
+              type="button"
+              onClick={() => setTemplateType(tpl)}
+              className={`p-4 rounded-xl text-left border transition-all duration-200 flex flex-col justify-between ${
+                templateType === tpl
+                  ? 'bg-phosphor/10 border-phosphor/40 text-slate-100 shadow-md shadow-phosphor/5'
+                  : 'bg-obsidian-800 border-obsidian-600 text-slate-400 hover:border-obsidian-500 hover:text-slate-300'
+              }`}
+            >
+              <div>
+                <div className="font-semibold text-sm mb-1 text-slate-200 flex items-center justify-between">
+                  <span>{t(`templates.${tpl}`)}</span>
+                  {templateType === tpl && (
+                    <span className="text-[9px] bg-phosphor/20 text-phosphor px-1.5 py-0.5 rounded-full font-bold uppercase tracking-wider">
+                      Selected
+                    </span>
+                  )}
+                </div>
+                <p className="text-xs text-slate-500 leading-normal">
+                  {t(`templates.${tpl}Desc`)}
+                </p>
+              </div>
             </button>
           ))}
         </div>
