@@ -99,7 +99,10 @@ export default async function MeetingDetailPage({
           <h2 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">
             {t('sections.transcript')}
           </h2>
-          <TranscriptView transcript={meeting.transcript} />
+          <TranscriptView
+            transcript={meeting.transcript}
+            transcriptSegments={meeting.transcript_segments as any}
+          />
         </div>
       )}
 

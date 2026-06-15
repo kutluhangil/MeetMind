@@ -1,8 +1,10 @@
 export function buildSummaryPrompt(transcript: string, language: 'tr' | 'en'): string {
   const instructions = {
     tr: `Sen bir toplantı asistanısın. Verilen toplantı transkripsiyonunu analiz et.
+Transkripsiyonu konuşma akışına göre segmentlere ayır ve her segmentin kime ait olduğunu tahmin et (Konuşmacı A, Konuşmacı B veya isimleri konuşmada geçiyorsa gerçek isimleri şeklinde).
 Yanıtını SADECE geçerli JSON formatında ver, başka hiçbir şey ekleme.`,
     en: `You are a meeting assistant. Analyze the given meeting transcript.
+Segment the transcript by conversational turns and attribute each turn to the correct speaker (e.g., "Speaker A", "Speaker B", or their real names if mentioned in the conversation).
 Return ONLY valid JSON, nothing else.`,
   };
 
@@ -24,7 +26,13 @@ Return ONLY valid JSON, nothing else.`,
     { "name": "string", "role": "string or null" }
   ],
   "meeting_duration_estimate": "string",
-  "sentiment": "positive | neutral | negative | mixed"
+  "sentiment": "positive | neutral | negative | mixed",
+  "transcript_segments": [
+    {
+      "speaker": "string (name or Speaker A/B)",
+      "text": "string (text spoken)"
+    }
+  ]
 }`;
 
   return `${instructions[language]}

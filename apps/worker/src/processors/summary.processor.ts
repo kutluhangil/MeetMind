@@ -16,6 +16,7 @@ export async function summaryProcessor(job: Job<SummaryJobData>): Promise<void> 
       summary: result.summary,
       key_decisions: result.key_decisions,
       participants: result.participants,
+      transcript_segments: result.transcript_segments,
       status: 'completed',
     });
     await job.updateProgress(80);

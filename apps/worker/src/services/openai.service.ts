@@ -43,6 +43,10 @@ export interface SummaryResult {
   participants: Array<{ name: string; role: string | null }>;
   meeting_duration_estimate: string;
   sentiment: 'positive' | 'neutral' | 'negative' | 'mixed';
+  transcript_segments: Array<{
+    speaker: string;
+    text: string;
+  }>;
 }
 
 export async function summarizeMeeting(
