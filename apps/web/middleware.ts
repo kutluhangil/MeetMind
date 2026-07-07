@@ -17,30 +17,39 @@ const AUTH_ONLY = /^\/(tr|en)\/(login|register)/;
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Build a Supabase client that refreshes session tokens via cookies
   let supabaseResponse = NextResponse.next({ request });
+  let user: any = null;
 
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (supabaseUrl && supabaseKey) {
+    const supabase = createServerClient(supabaseUrl, supabaseKey, {
       cookies: {
         getAll: () => request.cookies.getAll(),
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) =>
-            request.cookies.set(name, value),
-          );
+          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
           supabaseResponse = NextResponse.next({ request });
           cookiesToSet.forEach(({ name, value, options }) =>
             supabaseResponse.cookies.set(name, value, options),
           );
         },
       },
-    },
-  );
+    });
 
-  // Always call getUser() — this refreshes the auth token if needed
-  const { data: { user } } = await supabase.auth.getUser();
+    try {
+      // Always call getUser() — this refreshes the auth token if needed
+      const { data } = await supabase.auth.getUser();
+      user = data.user;
+    } catch (e) {
+      console.warn('Supabase error in middleware:', e);
+    }
+  }
+
+  // Bypass auth if demo_mode cookie is set
+  if (request.cookies.get('demo_mode')?.value === 'true') {
+    user = { id: 'demo-user', email: 'demo@meetmind.com' };
+  }
 
   const localeMatch = pathname.match(/^\/(tr|en)/);
   const locale = localeMatch?.[1] ?? defaultLocale;

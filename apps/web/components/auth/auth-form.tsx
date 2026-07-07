@@ -87,36 +87,13 @@ export function AuthForm({ mode, locale }: AuthFormProps) {
   const handleSkip = async () => {
     setLoading(true);
     setError(null);
-    const demoEmail = 'demo@meetmind.com';
-    const demoPassword = 'password123';
     try {
-      const { error: signInError } = await supabase.auth.signInWithPassword({
-        email: demoEmail,
-        password: demoPassword,
-      });
-
-      if (signInError) {
-        const { error: signUpError } = await supabase.auth.signUp({
-          email: demoEmail,
-          password: demoPassword,
-          options: {
-            emailRedirectTo: `${window.location.origin}/api/auth/callback?next=/${locale}/dashboard`,
-          },
-        });
-        if (signUpError) throw signUpError;
-
-        const { error: retryError } = await supabase.auth.signInWithPassword({
-          email: demoEmail,
-          password: demoPassword,
-        });
-        if (retryError) throw retryError;
-      }
-
+      // Set demo mode cookie (valid for 1 day)
+      document.cookie = `demo_mode=true; path=/; max-age=86400`;
       router.push(`/${locale}/dashboard`);
       router.refresh();
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Demo girişi başarısız oldu.');
-    } finally {
+      setError('Demo girişi başarısız oldu.');
       setLoading(false);
     }
   };
