@@ -84,6 +84,43 @@ export function AuthForm({ mode, locale }: AuthFormProps) {
     }
   };
 
+  const handleSkip = async () => {
+    setLoading(true);
+    setError(null);
+    const demoEmail = 'demo@meetmind.com';
+    const demoPassword = 'password123';
+    try {
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email: demoEmail,
+        password: demoPassword,
+      });
+
+      if (signInError) {
+        const { error: signUpError } = await supabase.auth.signUp({
+          email: demoEmail,
+          password: demoPassword,
+          options: {
+            emailRedirectTo: `${window.location.origin}/api/auth/callback?next=/${locale}/dashboard`,
+          },
+        });
+        if (signUpError) throw signUpError;
+
+        const { error: retryError } = await supabase.auth.signInWithPassword({
+          email: demoEmail,
+          password: demoPassword,
+        });
+        if (retryError) throw retryError;
+      }
+
+      router.push(`/${locale}/dashboard`);
+      router.refresh();
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Demo girişi başarısız oldu.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Google OAuth */}
@@ -194,6 +231,19 @@ export function AuthForm({ mode, locale }: AuthFormProps) {
           </>
         )}
       </p>
+
+      {mode === 'login' && (
+        <div className="text-center pt-4 border-t border-obsidian-700/50 flex flex-col gap-2">
+          <button
+            type="button"
+            onClick={handleSkip}
+            disabled={loading}
+            className="text-xs text-slate-400 hover:text-phosphor transition-colors font-medium py-1"
+          >
+            Girişi Atla (Demo Modu)
+          </button>
+        </div>
+      )}
     </div>
   );
 }
