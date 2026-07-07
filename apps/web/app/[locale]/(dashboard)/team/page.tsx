@@ -14,7 +14,7 @@ export default async function TeamPage() {
 
   if (plan !== 'team') {
     return (
-      <div className="p-6 max-w-2xl mx-auto">
+      <div className="px-4 py-6 sm:p-6 max-w-2xl mx-auto">
         <h1 className="text-2xl font-display font-bold text-slate-100 mb-4">{t('title')}</h1>
         <div className="rounded-2xl bg-obsidian-800/40 border border-obsidian-700 p-8 text-center">
           <p className="text-slate-400 text-sm">{t('planRequired')}</p>
@@ -48,7 +48,7 @@ export default async function TeamPage() {
     : { data: [] };
 
   return (
-    <div className="p-6 max-w-2xl mx-auto space-y-6">
+    <div className="px-4 py-6 sm:p-6 max-w-2xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-display font-bold text-slate-100">{t('title')}</h1>
         <p className="text-slate-500 text-sm mt-1">{t('subtitle')}</p>

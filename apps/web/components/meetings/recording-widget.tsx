@@ -168,7 +168,7 @@ export function RecordingWidget({ onRecordingComplete }: RecordingWidgetProps) {
       {state === 'idle' && (
         <button
           onClick={startRecording}
-          className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20 text-sm font-medium transition-colors"
+          className="flex justify-center items-center gap-2 px-5 py-3 min-h-[44px] w-full rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20 text-sm font-medium transition-colors"
         >
           <span className="w-2.5 h-2.5 rounded-full bg-red-500" />
           Start Recording
@@ -178,7 +178,7 @@ export function RecordingWidget({ onRecordingComplete }: RecordingWidgetProps) {
       {state === 'recording' && (
         <button
           onClick={stopRecording}
-          className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-obsidian-700 border border-obsidian-500 text-slate-300 hover:text-slate-100 text-sm font-medium transition-colors w-full justify-center"
+          className="flex justify-center items-center gap-2 px-5 py-3 min-h-[44px] w-full rounded-xl bg-obsidian-700 border border-obsidian-500 text-slate-300 hover:text-slate-100 text-sm font-medium transition-colors"
         >
           Stop Recording
         </button>

@@ -17,7 +17,7 @@ export default async function DashboardPage({ params }: { params: { locale: stri
   const t = await getTranslations('dashboard');
 
   return (
-    <div className="p-6 max-w-5xl mx-auto space-y-8">
+    <div className="px-4 py-6 sm:p-6 max-w-5xl mx-auto space-y-8">
       <div>
         <h1 className="text-2xl font-display font-bold text-slate-100">{t('title')}</h1>
         <p className="text-slate-500 text-sm mt-1">{t('subtitle')}</p>

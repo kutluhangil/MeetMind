@@ -14,7 +14,7 @@ export default async function ProfilePage() {
     .single();
 
   return (
-    <div className="p-6 max-w-lg space-y-10">
+    <div className="px-4 py-6 sm:p-6 max-w-lg space-y-10">
       <div>
         <h1 className="text-2xl font-bold text-slate-100 mb-6">{t('profile.title')}</h1>
         <ProfileForm

@@ -1,7 +1,23 @@
+import { cookies } from 'next/headers';
 import { createClient } from '@/lib/supabase/server';
 import { DashboardAnalytics } from '@/components/dashboard/dashboard-analytics';
 
 export async function DashboardAnalyticsWrapper({ locale }: { locale: string }) {
+  const cookieStore = await cookies();
+  const isDemo = cookieStore.get('demo_mode')?.value === 'true';
+
+  if (isDemo) {
+    const mockMeetings = [
+      { title: 'Project Kickoff', audio_duration: 3600, sentiment: 'positive', created_at: new Date().toISOString() },
+      { title: 'Weekly Sync', audio_duration: 1800, sentiment: 'neutral', created_at: new Date(Date.now() - 86400000).toISOString() },
+      { title: 'Client Pitch', audio_duration: 2700, sentiment: 'positive', created_at: new Date(Date.now() - 172800000).toISOString() },
+    ];
+    const mockActions = [
+      { status: 'open' }, { status: 'open' }, { status: 'completed' }, { status: 'completed' }
+    ];
+    return <DashboardAnalytics meetings={mockMeetings as any} actionItems={mockActions as any} locale={locale} />;
+  }
+
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 

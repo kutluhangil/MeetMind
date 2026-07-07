@@ -11,7 +11,7 @@ export function Header() {
       <div className="flex items-center gap-3">
         <button
           onClick={() => setSidebarOpen(true)}
-          className="md:hidden p-2 -ml-2 text-slate-400 hover:text-slate-100 rounded-lg hover:bg-obsidian-800 transition-colors"
+          className="md:hidden p-2.5 -ml-2 text-slate-400 hover:text-slate-100 rounded-lg hover:bg-obsidian-800 transition-colors"
           aria-label="Open sidebar"
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

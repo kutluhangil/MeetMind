@@ -71,7 +71,7 @@ export default function NewMeetingPage() {
   };
 
   return (
-    <div className="p-6 max-w-2xl mx-auto space-y-6">
+    <div className="px-4 py-6 sm:p-6 max-w-2xl mx-auto space-y-6">
       <h1 className="text-2xl font-display font-bold text-slate-100">{t('title')}</h1>
 
       {/* Title */}

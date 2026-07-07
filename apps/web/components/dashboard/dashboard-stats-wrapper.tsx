@@ -1,10 +1,50 @@
 import { getTranslations } from 'next-intl/server';
+import { cookies } from 'next/headers';
 import { createClient } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { Link } from '@/lib/navigation';
 
 export async function DashboardStatsWrapper() {
   const t = await getTranslations('dashboard');
+  const cookieStore = await cookies();
+  const isDemo = cookieStore.get('demo_mode')?.value === 'true';
+
+  if (isDemo) {
+    return (
+      <>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="rounded-2xl bg-obsidian-800/60 border border-obsidian-600 p-5">
+            <p className="text-xs text-slate-500 uppercase tracking-wide">{t('stats.meetings')}</p>
+            <p className="text-3xl font-display font-bold text-slate-100 mt-1">3</p>
+            <p className="text-xs text-slate-600 mt-0.5">{t('stats.thisMonth')}</p>
+          </div>
+          <div className="rounded-2xl bg-obsidian-800/60 border border-obsidian-600 p-5">
+            <p className="text-xs text-slate-500 uppercase tracking-wide">{t('stats.actions')}</p>
+            <p className="text-3xl font-display font-bold text-slate-100 mt-1">12</p>
+          </div>
+          <div className="rounded-2xl bg-obsidian-800/60 border border-obsidian-600 p-5">
+            <p className="text-xs text-slate-500 uppercase tracking-wide">{t('stats.emails')}</p>
+            <p className="text-3xl font-display font-bold text-slate-100 mt-1">5</p>
+            <p className="text-xs text-slate-600 mt-0.5">{t('stats.thisMonth')}</p>
+          </div>
+        </div>
+
+        <div className="rounded-2xl bg-phosphor/5 border border-phosphor/20 p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between mt-8 gap-4 sm:gap-0">
+          <div>
+            <p className="text-sm font-medium text-phosphor">Demo Plan — 3/5 meetings this month</p>
+            <p className="text-xs text-slate-500 mt-0.5">Upgrade to Pro for unlimited meetings.</p>
+          </div>
+          <Link
+            href="/settings/billing"
+            className="px-4 py-2 rounded-xl bg-phosphor text-obsidian-950 text-sm font-semibold hover:bg-phosphor-glow transition-colors"
+          >
+            Upgrade
+          </Link>
+        </div>
+      </>
+    );
+  }
+
   const supabase = await createClient();
   const admin = createAdminClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -42,7 +82,7 @@ export async function DashboardStatsWrapper() {
       </div>
 
       {plan === 'free' && (
-        <div className="rounded-2xl bg-phosphor/5 border border-phosphor/20 p-4 flex items-center justify-between mt-8">
+        <div className="rounded-2xl bg-phosphor/5 border border-phosphor/20 p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between mt-8 gap-4 sm:gap-0">
           <div>
             <p className="text-sm font-medium text-phosphor">Free Plan — {monthlyUsage}/5 meetings this month</p>
             <p className="text-xs text-slate-500 mt-0.5">Upgrade to Pro for unlimited meetings.</p>

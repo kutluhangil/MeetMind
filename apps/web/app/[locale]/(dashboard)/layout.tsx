@@ -1,4 +1,5 @@
 import { redirect } from 'next/navigation';
+import { cookies } from 'next/headers';
 import { createClient } from '@/lib/supabase/server';
 import { Sidebar } from '@/components/layout/sidebar';
 import { Header } from '@/components/layout/header';
@@ -14,7 +15,10 @@ export default async function DashboardLayout({
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
-  if (!user) {
+  const cookieStore = await cookies();
+  const isDemo = cookieStore.get('demo_mode')?.value === 'true';
+
+  if (!user && !isDemo) {
     redirect(`/${locale}/login`);
   }
 

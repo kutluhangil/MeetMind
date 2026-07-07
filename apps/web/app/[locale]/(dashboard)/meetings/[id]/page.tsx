@@ -1,3 +1,4 @@
+import { cookies } from 'next/headers';
 import { getTranslations } from 'next-intl/server';
 import { createClient } from '@/lib/supabase/server';
 import { notFound } from 'next/navigation';
@@ -17,8 +18,67 @@ export default async function MeetingDetailPage({
   params: { id: string; locale: string };
 }) {
   const t = await getTranslations('meeting');
+  const cookieStore = await cookies();
+  const isDemo = cookieStore.get('demo_mode')?.value === 'true';
+
+  if (isDemo) {
+    const mockMeeting = {
+      id: params.id,
+      title: 'Demo Meeting',
+      status: 'completed' as MeetingStatus,
+      created_at: new Date().toISOString(),
+      summary: 'Bu bir demo toplantısıdır. MeetMind platformunun nasıl çalıştığını görmeniz için oluşturulmuştur.',
+      key_decisions: ['Platform test edilecek', 'Demo modu incelenecek'],
+      transcript: 'Konuşmacı 1: Merhaba, MeetMind demomuza hoş geldiniz.\nKonuşmacı 2: Merhaba, teşekkürler. Nasıl çalışıyor?\nKonuşmacı 1: Yüklediğiniz ses kayıtlarını analiz edip özetler ve aksiyon maddeleri çıkarır.',
+      transcript_segments: [
+        { text: 'Merhaba, MeetMind demomuza hoş geldiniz.', start: 0, end: 3, speaker: 'Speaker 1' },
+        { text: 'Merhaba, teşekkürler. Nasıl çalışıyor?', start: 4, end: 7, speaker: 'Speaker 2' },
+        { text: 'Yüklediğiniz ses kayıtlarını analiz edip özetler ve aksiyon maddeleri çıkarır.', start: 8, end: 12, speaker: 'Speaker 1' }
+      ]
+    };
+    
+    return (
+      <div className="px-4 py-6 sm:p-6 max-w-4xl mx-auto space-y-8">
+        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+          <div>
+            <h1 className="text-2xl font-display font-bold text-slate-100">{mockMeeting.title}</h1>
+            <p className="text-slate-500 text-sm mt-1">
+              {new Date(mockMeeting.created_at).toLocaleDateString('en-US', {
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+              })}
+            </p>
+          </div>
+          <StatusBadge meetingId={mockMeeting.id} initialStatus={mockMeeting.status} />
+        </div>
+
+        <SummaryCard summary={mockMeeting.summary} keyDecisions={mockMeeting.key_decisions} />
+        
+        <div>
+          <h2 className="text-xs font-semibold text-phosphor uppercase tracking-wide mb-3">
+            {t('sections.actions')}
+          </h2>
+          <ActionListWrapper meetingId={mockMeeting.id} initialItems={[{ id: '1', meeting_id: mockMeeting.id, user_id: 'demo', content: 'Demo modunu keşfet', status: 'completed', assignee: null, due_date: null, created_at: new Date().toISOString() } as any]} />
+        </div>
+
+        <div>
+          <h2 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">
+            {t('sections.transcript')}
+          </h2>
+          <TranscriptView
+            transcript={mockMeeting.transcript}
+            transcriptSegments={mockMeeting.transcript_segments as any}
+          />
+        </div>
+      </div>
+    );
+  }
+
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
+
+  if (!user) {
+    notFound();
+  }
 
   const [meetingRes, profileRes] = await Promise.all([
     supabase
@@ -55,9 +115,9 @@ export default async function MeetingDetailPage({
     : [];
 
   return (
-    <div className="p-6 max-w-4xl mx-auto space-y-8">
+    <div className="px-4 py-6 sm:p-6 max-w-4xl mx-auto space-y-8">
       {/* Header */}
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-display font-bold text-slate-100">{meeting.title}</h1>
           <p className="text-slate-500 text-sm mt-1">

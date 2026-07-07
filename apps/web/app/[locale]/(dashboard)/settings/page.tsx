@@ -42,7 +42,7 @@ export default async function SettingsPage() {
   ] as const;
 
   return (
-    <div className="p-6 max-w-2xl">
+    <div className="px-4 py-6 sm:p-6 max-w-2xl">
       <h1 className="text-2xl font-bold text-slate-100 mb-6">{t('title')}</h1>
 
       <div className="flex flex-col gap-3">

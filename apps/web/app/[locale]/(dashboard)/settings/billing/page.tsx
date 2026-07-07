@@ -34,7 +34,7 @@ export default async function BillingPage() {
   const currentPlan = PLANS[plan as keyof typeof PLANS] ?? PLANS.free;
 
   return (
-    <div className="p-6 max-w-2xl mx-auto space-y-8">
+    <div className="px-4 py-6 sm:p-6 max-w-2xl mx-auto space-y-8">
       <h1 className="text-2xl font-display font-bold text-slate-100">{t('title')}</h1>
 
       {/* Current plan card */}

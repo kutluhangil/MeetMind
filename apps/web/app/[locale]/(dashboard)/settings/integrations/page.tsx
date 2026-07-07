@@ -13,7 +13,7 @@ export default async function IntegrationsPage() {
     .single();
 
   return (
-    <div className="p-6 max-w-lg space-y-10">
+    <div className="px-4 py-6 sm:p-6 max-w-lg space-y-10">
       <div>
         <h1 className="text-2xl font-bold text-slate-100 mb-6">{t('integrations.title')}</h1>
         <p className="text-slate-400 text-sm mb-6">
