@@ -232,18 +232,16 @@ export function AuthForm({ mode, locale }: AuthFormProps) {
         )}
       </p>
 
-      {mode === 'login' && (
-        <div className="text-center pt-4 border-t border-obsidian-700/50 flex flex-col gap-2">
-          <button
-            type="button"
-            onClick={handleSkip}
-            disabled={loading}
-            className="text-xs text-slate-400 hover:text-phosphor transition-colors font-medium py-1"
-          >
-            Girişi Atla (Demo Modu)
-          </button>
-        </div>
-      )}
+      <div className="text-center pt-4 border-t border-obsidian-700/50 flex flex-col gap-2">
+        <button
+          type="button"
+          onClick={handleSkip}
+          disabled={loading}
+          className="text-xs text-slate-400 hover:text-phosphor transition-colors font-medium py-1"
+        >
+          Girişi Atla (Demo Modu)
+        </button>
+      </div>
     </div>
   );
 }
