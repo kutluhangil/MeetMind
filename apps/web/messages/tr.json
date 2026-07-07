@@ -25,7 +25,8 @@
     "settings":   "Ayarlar",
     "billing":    "Abonelik",
     "profile":    "Profil",
-    "logout":     "Çıkış"
+    "logout":     "Çıkış",
+    "loggingOut": "Çıkış Yapılıyor..."
   },
   "auth": {
     "login": {

@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { useUiStore } from '@/stores/ui-store';
 import { Nav } from '@/components/layout/nav';
+import { LogoutButton } from '@/components/auth/logout-button';
 import { cn } from '@/lib/utils';
 import { useEffect } from 'react';
 import { usePathname } from '@/lib/navigation';
@@ -55,10 +56,11 @@ export function Sidebar() {
         </div>
 
         <div className="p-3 border-t border-obsidian-700">
-          <div className="px-3 py-2 rounded-xl bg-obsidian-800 border border-obsidian-600">
+          <div className="px-3 py-2 rounded-xl bg-obsidian-800 border border-obsidian-600 mb-2">
             <p className="text-xs text-slate-500">{t('billing')}</p>
             <p className="text-sm font-medium text-slate-300">Free</p>
           </div>
+          <LogoutButton />
         </div>
       </aside>
     </>

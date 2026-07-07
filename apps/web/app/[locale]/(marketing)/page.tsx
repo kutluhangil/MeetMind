@@ -36,6 +36,47 @@ export default async function LandingPage() {
           </div>
         </div>
 
+        {/* App Mockup Visual */}
+        <div className="relative z-10 w-full max-w-6xl mx-auto mt-16 md:mt-24 px-4 md:px-6">
+          <div className="relative mx-auto rounded-2xl md:rounded-[2rem] border border-white/10 bg-obsidian-900/50 p-2 md:p-4 backdrop-blur-md shadow-2xl overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-tr from-phosphor/10 to-transparent opacity-50" />
+            <div className="relative rounded-xl md:rounded-2xl border border-white/5 bg-obsidian-950 overflow-hidden shadow-inner flex flex-col h-[300px] md:h-[500px]">
+              {/* Mockup Header */}
+              <div className="flex items-center px-4 py-3 border-b border-white/5 bg-obsidian-900/50">
+                <div className="flex gap-1.5">
+                  <div className="w-2.5 h-2.5 rounded-full bg-slate-600/50" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-slate-600/50" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-slate-600/50" />
+                </div>
+              </div>
+              {/* Mockup Content */}
+              <div className="flex-1 flex p-4 md:p-6 gap-6 overflow-hidden">
+                {/* Sidebar Mock */}
+                <div className="hidden md:flex w-48 flex-col gap-2">
+                  <div className="h-4 w-24 bg-slate-800 rounded-md mb-4" />
+                  <div className="h-8 w-full bg-phosphor/10 rounded-lg border border-phosphor/20" />
+                  <div className="h-8 w-full bg-slate-800/50 rounded-lg" />
+                  <div className="h-8 w-full bg-slate-800/50 rounded-lg" />
+                </div>
+                {/* Main Mock */}
+                <div className="flex-1 flex flex-col gap-4">
+                  <div className="h-8 w-1/3 bg-slate-800 rounded-lg" />
+                  <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="col-span-2 flex flex-col gap-3">
+                      <div className="h-24 w-full bg-slate-800/50 rounded-xl" />
+                      <div className="h-24 w-full bg-slate-800/50 rounded-xl" />
+                      <div className="h-24 w-full bg-slate-800/50 rounded-xl" />
+                    </div>
+                    <div className="col-span-1 flex flex-col gap-3">
+                      <div className="h-32 w-full bg-phosphor/5 rounded-xl border border-phosphor/10" />
+                      <div className="flex-1 w-full bg-slate-800/50 rounded-xl" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         {/* Features grid */}
         <div className="relative z-10 w-full max-w-5xl mx-auto mt-16 md:mt-24 px-4 md:px-6">
           <h2 className="text-xl md:text-2xl font-display font-bold text-slate-100 text-center mb-8 md:mb-10">
